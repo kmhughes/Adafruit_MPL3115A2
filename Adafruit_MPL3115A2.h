@@ -24,10 +24,15 @@
  #include "WProgram.h"
 #endif
 
-#ifdef __AVR_ATtiny85__
+#if defined(__AVR_ATtiny85__)
 #include <TinyWireM.h>
+#define Wire TinyWireM
+#elif defined (CORE_TEENSY) && defined (__MK20DX256__)
+#include <i2c_t3.h>
+typedef i2c_t3 my_i2c;
 #else
 #include <Wire.h>
+typedef TwoWire my_i2c;
 #endif
 
 /*=========================================================================
@@ -92,7 +97,7 @@
 
 class Adafruit_MPL3115A2{
  public:
-  Adafruit_MPL3115A2(TwoWire* w=&Wire);
+  Adafruit_MPL3115A2(my_i2c* w=&Wire);
   boolean begin(void);
   float getPressure(void);
   float getAltitude(void);
@@ -103,5 +108,5 @@ class Adafruit_MPL3115A2{
  private:
   uint8_t read8(uint8_t a);
   uint8_t mode;
-  TwoWire* wire;
+  my_i2c* wire;
 };

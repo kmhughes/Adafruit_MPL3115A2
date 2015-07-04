@@ -19,6 +19,7 @@
     v1.1 - Modified by Keith M. Hughes to support multiple I2C buses.
 */
 /**************************************************************************/
+/*
 #if ARDUINO >= 100
  #include "Arduino.h"
 #else
@@ -29,8 +30,9 @@
 #include <TinyWireM.h>
 #define Wire TinyWireM
 #else
-#include <Wire.h>
+#include <i2c_t3.h>
 #endif
+*/
 
 #include "Adafruit_MPL3115A2.h"
 
@@ -39,7 +41,7 @@
     @brief  Instantiates a new MPL3115A2 class
 */
 /**************************************************************************/
-Adafruit_MPL3115A2::Adafruit_MPL3115A2(TwoWire* w) : wire{w} {
+Adafruit_MPL3115A2::Adafruit_MPL3115A2(my_i2c* w) : wire{w} {
 
 }
 
